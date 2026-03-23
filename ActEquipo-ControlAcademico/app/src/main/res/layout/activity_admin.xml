@@ -1,6 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Panel Administrador"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#065044"
+        android:layout_marginBottom="24dp" />
+
+    <!-- ── SECCIÓN: CAMBIAR ROL ─────────────────────────────────────── -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambiar rol de usuario"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Campo para el correo del usuario a modificar -->
+    <EditText
+        android:id="@+id/etEmailUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Correo del usuario"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="8dp" />
+
+    <!--
+        RadioGroup: permite seleccionar UNA opción entre varias.
+        Cada RadioButton representa un rol posible.
+    -->
+    <RadioGroup
+        android:id="@+id/radioGroupRol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <RadioButton
+            android:id="@+id/radioAlumno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alumno"
+            android:checked="true"
+            android:buttonTint="#065044" />
+
+        <RadioButton
+            android:id="@+id/radioProfesor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#065044"
+            android:text="Profesor"
+            android:layout_marginStart="16dp" />
+
+        <RadioButton
+            android:id="@+id/radioAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#065044"
+            android:text="Admin"
+            android:layout_marginStart="16dp" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnCambiarRol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#FF5722"
+        android:text="Cambiar Rol" />
+
+    <!-- ── SECCIÓN: CREAR MATERIA ───────────────────────────────────── -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crear nueva materia"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/etNombreMateria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre de la materia"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/etHorario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Horario (ej: Lun/Mié 10:00-11:30)"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/etEmailProfesor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Correo del profesor asignado"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnCrearMateria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#FF5722"
+        android:text="Crear Materia" />
+
+    <!-- Botón de cerrar sesión siempre al fondo -->
+    <Button
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#065044"
+        android:text="Cerrar Sesión"
+        android:layout_marginTop="80dp" />
+    />
+
+</LinearLayout>

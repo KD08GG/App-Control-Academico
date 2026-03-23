@@ -1,4 +1,10 @@
 package com.udlap.controlacademico
 
-class ProfesorActivity {
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+
+class ProfesorActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 }
