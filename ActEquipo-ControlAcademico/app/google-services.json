@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "20184936976",
+    "project_id": "controlacademico-74ce2",
+    "storage_bucket": "controlacademico-74ce2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20184936976:android:7c35daba8408c586ad9095",
+        "android_client_info": {
+          "package_name": "com.udlap.controlacademico"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf_tDXWtmPTFqSUTn52bZVV40BjEZA0hk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
