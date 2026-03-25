@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_qr"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="QR Asistencia" />
+
+    <item
+        android:id="@+id/nav_calif"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Calificaciones" />
+
+    <item
+        android:id="@+id/nav_horario"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="Horario" />
+
+</menu>
