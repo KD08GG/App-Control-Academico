@@ -1,15 +1,19 @@
+# IDEs (Android Studio, IntelliJ, VS Code)
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+*.ipr
+*.iws
+
+# Gradle y Build
+.gradle/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Configuración Local (¡Muy importante!)
 local.properties
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
