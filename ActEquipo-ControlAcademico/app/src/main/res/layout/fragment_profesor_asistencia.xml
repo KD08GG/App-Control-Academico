@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tomar asistencia"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#1565C0"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecciona la materia"
+        android:textSize="14sp"
+        android:textColor="#555555"
+        android:layout_marginBottom="8dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerMateriasProfesor"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/btnEscanearQr"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="Escanear QR"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#1565C0"/>
+
+</LinearLayout>

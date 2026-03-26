@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- PERMISO DE CÁMARA: Para escanear códigos QR -->
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!-- FEATURE DE CÁMARA: Le indica a Play Store que la app usa cámara -->
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="false" />  <!-- Puede instalarse en dispositivos sin cámara -->
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ControlAcademico">
 
-        <!-- LOGIN ACTIVITY — PANTALLA DE INICIO -->
+        <activity
+            android:name=".CaptureAct"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -27,7 +29,6 @@
             </intent-filter>
         </activity>
 
-        <!-- No se necesitan intent-filter porque solo se abren desde dentro de la propia app -->
         <activity
             android:name=".AdminActivity"
             android:exported="false" />
@@ -39,7 +40,6 @@
         <activity
             android:name=".AlumnoActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>
