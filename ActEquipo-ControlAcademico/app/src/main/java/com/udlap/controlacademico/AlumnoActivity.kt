@@ -10,6 +10,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class AlumnoActivity : AppCompatActivity() {
 
+    private lateinit var tvTituloAlumno: TextView
+
     private lateinit var tvLogOut: TextView
     private lateinit var btnQR: Button
     private lateinit var btnCalif: Button
@@ -20,11 +22,22 @@ class AlumnoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alumno)
 
+        tvTituloAlumno = findViewById(R.id.tvTituloAlumno)
+
         tvLogOut = findViewById(R.id.tvLogOutAlumno)
         btnQR = findViewById(R.id.btnQR)
         btnCalif = findViewById(R.id.btnCalif)
         btnHorario = findViewById(R.id.btnHorarioAlumno)
         tvNombreSeccion = findViewById(R.id.tvNombreSeccionAlumno)
+
+        val sessionManager = SessionManager(this)
+        val nombre = sessionManager.obtenerNombre()
+
+        if (nombre.isNotEmpty()) {
+            tvTituloAlumno.text = "Bienvenido, $nombre"
+        } else {
+            tvTituloAlumno.text = "Bienvenido"
+        }
 
         if (savedInstanceState == null) {
             tvNombreSeccion.text = "Asistencia (QR)"

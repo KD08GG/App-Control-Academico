@@ -5,128 +5,253 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.ListView
+import android.widget.ProgressBar
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.BarcodeFormat
-import com.journeyapps.barcodescanner.BarcodeEncoder
+import com.google.zxing.qrcode.QRCodeWriter
 
-/**
- * QrFragment — Genera un código QR para el pase de lista.
- *
- * Flujo:
- * 1. Carga las materias donde el alumno está inscrito (campo "alumnos" contiene su UID).
- * 2. El alumno selecciona la materia en un Spinner.
- * 3. Al presionar "Generar QR", se crea un QR con formato:
- *    "<uid_alumno>|<id_materia>"
- *    Este string es el que escaneará el profesor para registrar asistencia.
- */
 class QrFragment : Fragment() {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var sessionManager: SessionManager
 
-    private lateinit var spinnerMaterias: Spinner
+    private lateinit var spinnerMateriasQr: Spinner
     private lateinit var btnGenerarQr: Button
     private lateinit var imgQr: ImageView
-    private lateinit var tvInstruccion: TextView
-    private lateinit var progressBar: ProgressBar
+    private lateinit var progressQr: ProgressBar
+    private lateinit var tvInstruccionQr: TextView
 
-    // Mapas para relacionar nombre mostrado ↔ ID de Firestore
-    private val nombresMaterias = mutableListOf<String>()
-    private val idsMaterias     = mutableListOf<String>()
+    private lateinit var listViewAsistenciaAlumno: ListView
+    private lateinit var progressListaAsistenciaAlumno: ProgressBar
+    private lateinit var tvSinListaAsistenciaAlumno: TextView
+
+    private val listaMaterias = mutableListOf<String>()
+    private val listaIdsMaterias = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_qr, container, false)
+    ): View {
+        return inflater.inflate(R.layout.fragment_qr, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        db             = FirebaseFirestore.getInstance()
+        db = FirebaseFirestore.getInstance()
         sessionManager = SessionManager(requireContext())
 
-        spinnerMaterias = view.findViewById(R.id.spinnerMateriasQr)
-        btnGenerarQr    = view.findViewById(R.id.btnGenerarQr)
-        imgQr           = view.findViewById(R.id.imgQr)
-        tvInstruccion   = view.findViewById(R.id.tvInstruccionQr)
-        progressBar     = view.findViewById(R.id.progressQr)
+        spinnerMateriasQr = view.findViewById(R.id.spinnerMateriasQr)
+        btnGenerarQr = view.findViewById(R.id.btnGenerarQr)
+        imgQr = view.findViewById(R.id.imgQr)
+        progressQr = view.findViewById(R.id.progressQr)
+        tvInstruccionQr = view.findViewById(R.id.tvInstruccionQr)
 
-        cargarMaterias()
+        listViewAsistenciaAlumno = view.findViewById(R.id.listViewAsistenciaAlumno)
+        progressListaAsistenciaAlumno = view.findViewById(R.id.progressListaAsistenciaAlumno)
+        tvSinListaAsistenciaAlumno = view.findViewById(R.id.tvSinListaAsistenciaAlumno)
 
-        btnGenerarQr.setOnClickListener { generarQr() }
+        cargarMateriasAlumno()
+        cargarListaAsistenciaAlumno()
+
+        btnGenerarQr.setOnClickListener {
+            generarQrMateriaSeleccionada()
+        }
     }
 
-    /**
-     * Consulta Firestore para obtener las materias donde el UID del alumno
-     * está en el array "alumnos" del documento de materia.
-     */
-    private fun cargarMaterias() {
-        val uid = sessionManager.obtenerUid() ?: return
-        progressBar.visibility = View.VISIBLE
+    private fun cargarMateriasAlumno() {
+        val uidAlumno = sessionManager.obtenerUid()
+
+        if (uidAlumno == null) {
+            Toast.makeText(requireContext(), "No se encontró la sesión del alumno", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        progressQr.visibility = View.VISIBLE
 
         db.collection("materias")
-            .whereArrayContains("alumnos", uid)
+            .whereArrayContains("alumnos", uidAlumno)
             .get()
             .addOnSuccessListener { resultado ->
-                progressBar.visibility = View.GONE
-                nombresMaterias.clear()
-                idsMaterias.clear()
+                progressQr.visibility = View.GONE
+                listaMaterias.clear()
+                listaIdsMaterias.clear()
 
                 if (resultado.isEmpty) {
-                    tvInstruccion.text = "No estás inscrito en ninguna materia."
-                    btnGenerarQr.isEnabled = false
+                    Toast.makeText(
+                        requireContext(),
+                        "No estás inscrito en ninguna materia",
+                        Toast.LENGTH_LONG
+                    ).show()
                     return@addOnSuccessListener
                 }
 
-                for (doc in resultado.documents) {
-                    nombresMaterias.add(doc.getString("nombre") ?: "Sin nombre")
-                    idsMaterias.add(doc.id)
+                for (documento in resultado.documents) {
+                    val nombre = documento.getString("nombre") ?: "Materia sin nombre"
+                    listaMaterias.add(nombre)
+                    listaIdsMaterias.add(documento.id)
                 }
 
                 val adapter = ArrayAdapter(
                     requireContext(),
                     android.R.layout.simple_spinner_item,
-                    nombresMaterias
+                    listaMaterias
                 )
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerMaterias.adapter = adapter
+                spinnerMateriasQr.adapter = adapter
             }
-            .addOnFailureListener {
-                progressBar.visibility = View.GONE
-                Toast.makeText(requireContext(), "Error al cargar materias", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { e ->
+                progressQr.visibility = View.GONE
+                Toast.makeText(
+                    requireContext(),
+                    "Error al cargar materias: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
     }
 
-    /**
-     * Genera el QR usando la librería ZXing.
-     * El contenido del QR es: "<uid>|<idMateria>"
-     * El profesor lo escanea y separa por "|" para saber qué alumno en qué materia.
-     */
-    private fun generarQr() {
-        val uid = sessionManager.obtenerUid() ?: return
-        val index = spinnerMaterias.selectedItemPosition
-        if (index < 0 || index >= idsMaterias.size) {
-            Toast.makeText(requireContext(), "Selecciona una materia", Toast.LENGTH_SHORT).show()
+    private fun generarQrMateriaSeleccionada() {
+        val uidAlumno = sessionManager.obtenerUid()
+
+        if (uidAlumno == null) {
+            Toast.makeText(requireContext(), "No se encontró la sesión del alumno", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val idMateria   = idsMaterias[index]
-        val contenidoQr = "$uid|$idMateria"
+        if (listaIdsMaterias.isEmpty()) {
+            Toast.makeText(requireContext(), "No hay materias disponibles", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val posicion = spinnerMateriasQr.selectedItemPosition
+        val idMateria = listaIdsMaterias[posicion]
+        val nombreMateria = listaMaterias[posicion]
+
+        val contenidoQr = "$uidAlumno|$idMateria"
 
         try {
-            val encoder = BarcodeEncoder()
-            val bitmap: Bitmap = encoder.encodeBitmap(
-                contenidoQr,
-                BarcodeFormat.QR_CODE,
-                600, 600
-            )
+            val writer = QRCodeWriter()
+            val bitMatrix = writer.encode(contenidoQr, BarcodeFormat.QR_CODE, 600, 600)
+
+            val width = bitMatrix.width
+            val height = bitMatrix.height
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    bitmap.setPixel(
+                        x,
+                        y,
+                        if (bitMatrix[x, y]) android.graphics.Color.BLACK else android.graphics.Color.WHITE
+                    )
+                }
+            }
+
             imgQr.setImageBitmap(bitmap)
-            imgQr.visibility    = View.VISIBLE
-            tvInstruccion.text  = "Muestra este QR al profesor para registrar tu asistencia en:\n${nombresMaterias[index]}"
+            imgQr.visibility = View.VISIBLE
+            tvInstruccionQr.text = "QR generado para: $nombreMateria"
+
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Error al generar QR: ${e.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                "Error al generar QR: ${e.message}",
+                Toast.LENGTH_LONG
+            ).show()
         }
+    }
+
+    private fun cargarListaAsistenciaAlumno() {
+        val uidAlumno = sessionManager.obtenerUid()
+
+        if (uidAlumno == null) {
+            Toast.makeText(requireContext(), "No se encontró la sesión del alumno", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        progressListaAsistenciaAlumno.visibility = View.VISIBLE
+        tvSinListaAsistenciaAlumno.visibility = View.GONE
+
+        db.collection("materias")
+            .whereArrayContains("alumnos", uidAlumno)
+            .get()
+            .addOnSuccessListener { resultado ->
+                if (resultado.isEmpty) {
+                    progressListaAsistenciaAlumno.visibility = View.GONE
+                    tvSinListaAsistenciaAlumno.visibility = View.VISIBLE
+                    listViewAsistenciaAlumno.adapter = null
+                    return@addOnSuccessListener
+                }
+
+                val listaFinal = mutableListOf<String>()
+                var pendientes = resultado.size()
+
+                for (documento in resultado.documents) {
+                    val idMateria = documento.id
+                    val nombreMateria = documento.getString("nombre") ?: "Materia sin nombre"
+
+                    db.collection("materias")
+                        .document(idMateria)
+                        .collection("asistencias")
+                        .document(uidAlumno)
+                        .get()
+                        .addOnSuccessListener { docAsistencia ->
+                            val texto = if (docAsistencia.exists()) {
+                                "✅ $nombreMateria"
+                            } else {
+                                "❌ $nombreMateria"
+                            }
+
+                            listaFinal.add(texto)
+                            pendientes--
+
+                            if (pendientes == 0) {
+                                mostrarListaAsistenciaAlumno(listaFinal)
+                            }
+                        }
+                        .addOnFailureListener {
+                            listaFinal.add("❌ $nombreMateria")
+                            pendientes--
+
+                            if (pendientes == 0) {
+                                mostrarListaAsistenciaAlumno(listaFinal)
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                progressListaAsistenciaAlumno.visibility = View.GONE
+                Toast.makeText(
+                    requireContext(),
+                    "Error al cargar lista de asistencia: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+
+    private fun mostrarListaAsistenciaAlumno(lista: List<String>) {
+        progressListaAsistenciaAlumno.visibility = View.GONE
+
+        if (lista.isEmpty()) {
+            tvSinListaAsistenciaAlumno.visibility = View.VISIBLE
+            listViewAsistenciaAlumno.adapter = null
+            return
+        }
+
+        tvSinListaAsistenciaAlumno.visibility = View.GONE
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            lista
+        )
+        listViewAsistenciaAlumno.adapter = adapter
     }
 }

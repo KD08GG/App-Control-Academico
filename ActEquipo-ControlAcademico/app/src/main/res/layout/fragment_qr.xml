@@ -2,30 +2,75 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:padding="24dp">
 
+        <!-- Título -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pase de Lista"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/primary_blue"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="4dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genera tu código QR para registrar asistencia"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Lista de estado -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado de asistencia por materia"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_blue"
+            android:layout_marginBottom="8dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressListaAsistenciaAlumno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tvSinListaAsistenciaAlumno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No estás inscrito en ninguna materia."
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp" />
+
+        <ListView
+            android:id="@+id/listViewAsistenciaAlumno"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:dividerHeight="8dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Spinner de materias -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Selecciona tu materia"
             android:textSize="14sp"
             android:textColor="@color/text_secondary"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
 
         <Spinner
@@ -34,17 +79,20 @@
             android:layout_height="50dp"
             android:layout_marginBottom="20dp"/>
 
+        <!-- Botón generar -->
         <Button
             android:id="@+id/btnGenerarQr"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:text="Generar Código QR"
-            android:textStyle="bold"
+            android:text="Generar QR"
             android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:backgroundTint="@color/primary_blue"
             android:textAllCaps="false"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="20dp"/>
 
+        <!-- ProgressBar carga materias -->
         <ProgressBar
             android:id="@+id/progressQr"
             android:layout_width="wrap_content"
@@ -52,25 +100,30 @@
             android:visibility="gone"
             android:layout_marginBottom="16dp"/>
 
+        <!-- Instrucción -->
+        <TextView
+            android:id="@+id/tvInstruccionQr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecciona una materia y presiona el botón para generar tu QR."
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Imagen QR generado -->
         <ImageView
             android:id="@+id/imgQr"
             android:layout_width="260dp"
             android:layout_height="260dp"
             android:visibility="gone"
+            android:layout_gravity="center_horizontal"
             android:background="@color/white"
-            android:padding="12dp"
-            android:elevation="4dp"/>
+            android:padding="12dp" />
 
-        <TextView
-            android:id="@+id/tvInstruccionQr"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Muestra este código al profesor para registrar tu asistencia."
-            android:textSize="13sp"
-            android:textColor="@color/text_secondary"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"/>
+            android:layout_height="40dp" />
 
     </LinearLayout>
 </ScrollView>
