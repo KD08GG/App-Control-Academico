@@ -3,7 +3,7 @@
     <style name="Base.Theme.ControlAcademico" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:textColorHint">@color/text_secondary</item>
 
-        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textColor">@color/text_primary</item>
         <item name="colorControlNormal">@color/text_secondary</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
