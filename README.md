@@ -191,11 +191,6 @@ Ejemplo de organización:
 
 Proyecto desarrollado como parte del programa de Ingeniería en Sistemas Computacionales.
 
-* Edgar Emiliano Arámbula Flores
-* Keren Daniela Gonzalez
-* Erick Gonzalez Parada
-* Enrique Rocha Espinoza
-
 ---
 
 ## Licencia
