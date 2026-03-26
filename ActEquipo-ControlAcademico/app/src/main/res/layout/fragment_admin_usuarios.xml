@@ -10,10 +10,120 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- ===================== -->
+        <!-- AGREGAR USUARIO NUEVO -->
+        <!-- ===================== -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Asignar Roles"
+            android:text="Agregar Usuario"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_blue"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre completo"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etNombreNuevoUsuarioAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre del usuario"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correo del usuario"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etEmailNuevoUsuarioAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ejemplo@correo.com"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contraseña temporal"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etPasswordNuevoUsuarioAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mínimo 6 caracteres"
+            android:inputType="textPassword"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Rol"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/rgRolesNuevoUsuarioAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+
+            <RadioButton
+                android:id="@+id/rbNuevoAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alumno"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/rbNuevoProfesor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profesor" />
+
+            <RadioButton
+                android:id="@+id/rbNuevoAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Administrador" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnAgregarUsuarioAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Agregar Usuario"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primary_blue"
+            android:layout_marginBottom="32dp" />
+
+        <!-- ===================== -->
+        <!-- ACTUALIZAR ROL -->
+        <!-- ===================== -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Rol"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/primary_blue"
