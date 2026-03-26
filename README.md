@@ -17,14 +17,6 @@ El sistema está respaldado por Firebase, lo que garantiza persistencia, sincron
 
 ---
 
-## Vista General
-
-### Pantallas principales
-
-Agrega aquí tus capturas de pantalla (recomendado subirlas a una carpeta `/screenshots` en el repositorio):
-
----
-
 ## Arquitectura del Sistema
 
 ### Backend (Firebase)
