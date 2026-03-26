@@ -35,7 +35,8 @@
 
         <activity
             android:name=".ProfesorActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".AlumnoActivity"

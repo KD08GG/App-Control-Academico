@@ -4,20 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ListView
+import android.widget.ProgressBar
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.zxing.integration.android.IntentResult
 
 class ProfesorAsistenciaFragment : Fragment() {
 
     private lateinit var spinnerMateriasProfesor: Spinner
     private lateinit var btnEscanearQr: Button
+    private lateinit var listViewAsistencia: ListView
+    private lateinit var progressLista: ProgressBar
+    private lateinit var tvSinLista: TextView
 
     private lateinit var db: FirebaseFirestore
     private lateinit var sessionManager: SessionManager
@@ -50,11 +57,24 @@ class ProfesorAsistenciaFragment : Fragment() {
 
         spinnerMateriasProfesor = view.findViewById(R.id.spinnerMateriasProfesor)
         btnEscanearQr = view.findViewById(R.id.btnEscanearQr)
+        listViewAsistencia = view.findViewById(R.id.listViewAsistenciaProfesor)
+        progressLista = view.findViewById(R.id.progressListaAsistenciaProfesor)
+        tvSinLista = view.findViewById(R.id.tvSinListaAsistenciaProfesor)
 
         db = FirebaseFirestore.getInstance()
         sessionManager = SessionManager(requireContext())
 
         cargarMateriasProfesor()
+
+        spinnerMateriasProfesor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (listaIdsMaterias.isNotEmpty() && listaIdsMaterias[position].isNotEmpty()) {
+                    cargarListaAsistencia(listaIdsMaterias[position])
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
 
         btnEscanearQr.setOnClickListener {
             if (listaMaterias.isEmpty() || listaIdsMaterias.isEmpty() || listaIdsMaterias[0].isEmpty()) {
@@ -109,13 +129,109 @@ class ProfesorAsistenciaFragment : Fragment() {
             }
     }
 
+    private fun cargarListaAsistencia(idMateria: String) {
+        progressLista.visibility = View.VISIBLE
+        tvSinLista.visibility = View.GONE
+
+        db.collection("materias")
+            .document(idMateria)
+            .get()
+            .addOnSuccessListener { documentoMateria ->
+                val alumnosIds = documentoMateria.get("alumnos") as? List<*>
+
+                if (alumnosIds.isNullOrEmpty()) {
+                    progressLista.visibility = View.GONE
+                    tvSinLista.visibility = View.VISIBLE
+                    listViewAsistencia.adapter = null
+                    return@addOnSuccessListener
+                }
+
+                val listaFinal = mutableListOf<String>()
+                var pendientes = alumnosIds.size
+
+                for (uid in alumnosIds) {
+                    val uidAlumno = uid as? String ?: continue
+
+                    db.collection("usuarios")
+                        .document(uidAlumno)
+                        .get()
+                        .addOnSuccessListener { docAlumno ->
+                            val nombreAlumno = docAlumno.getString("nombre") ?: "Alumno sin nombre"
+
+                            db.collection("materias")
+                                .document(idMateria)
+                                .collection("asistencias")
+                                .document(uidAlumno)
+                                .get()
+                                .addOnSuccessListener { docAsistencia ->
+                                    val textoEstado = if (docAsistencia.exists()) {
+                                        "✅ $nombreAlumno"
+                                    } else {
+                                        "❌ $nombreAlumno"
+                                    }
+
+                                    listaFinal.add(textoEstado)
+                                    pendientes--
+
+                                    if (pendientes == 0) {
+                                        mostrarListaAsistencia(listaFinal)
+                                    }
+                                }
+                                .addOnFailureListener {
+                                    listaFinal.add("❌ $nombreAlumno")
+                                    pendientes--
+
+                                    if (pendientes == 0) {
+                                        mostrarListaAsistencia(listaFinal)
+                                    }
+                                }
+                        }
+                        .addOnFailureListener {
+                            listaFinal.add("❌ Alumno desconocido")
+                            pendientes--
+
+                            if (pendientes == 0) {
+                                mostrarListaAsistencia(listaFinal)
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                progressLista.visibility = View.GONE
+                Toast.makeText(
+                    requireContext(),
+                    "Error al cargar asistencia: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+
+    private fun mostrarListaAsistencia(lista: List<String>) {
+        progressLista.visibility = View.GONE
+
+        if (lista.isEmpty()) {
+            tvSinLista.visibility = View.VISIBLE
+            listViewAsistencia.adapter = null
+            return
+        }
+
+        tvSinLista.visibility = View.GONE
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            lista
+        )
+
+        listViewAsistencia.adapter = adapter
+    }
+
     private fun abrirEscanerQr() {
         val integrator = IntentIntegrator.forSupportFragment(this)
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
         integrator.setPrompt("Escanea el QR del alumno")
         integrator.setBeepEnabled(true)
-        integrator.setOrientationLocked(true)
-        integrator.setCaptureActivity(CaptureAct::class.java)
+        integrator.setOrientationLocked(false)
 
         val intent = integrator.createScanIntent()
         qrLauncher.launch(intent)
@@ -134,7 +250,6 @@ class ProfesorAsistenciaFragment : Fragment() {
 
         val posicion = spinnerMateriasProfesor.selectedItemPosition
         val idMateriaSeleccionada = listaIdsMaterias[posicion]
-        val nombreMateriaSeleccionada = listaMaterias[posicion]
 
         if (idMateriaQr != idMateriaSeleccionada) {
             Toast.makeText(
@@ -145,12 +260,25 @@ class ProfesorAsistenciaFragment : Fragment() {
             return
         }
 
-        Toast.makeText(
-            requireContext(),
-            "QR válido\nAlumno: $uidAlumno\nMateria: $nombreMateriaSeleccionada",
-            Toast.LENGTH_LONG
-        ).show()
+        val datosAsistencia = hashMapOf(
+            "asistio" to true
+        )
 
-        // Aquí en el siguiente paso guardaremos la asistencia en Firebase
+        db.collection("materias")
+            .document(idMateriaSeleccionada)
+            .collection("asistencias")
+            .document(uidAlumno)
+            .set(datosAsistencia)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Asistencia registrada", Toast.LENGTH_SHORT).show()
+                cargarListaAsistencia(idMateriaSeleccionada)
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    requireContext(),
+                    "Error al guardar asistencia: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
     }
 }
