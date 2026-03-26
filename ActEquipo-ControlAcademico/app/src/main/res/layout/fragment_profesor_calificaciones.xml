@@ -2,13 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="16dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -16,15 +16,15 @@
             android:text="Asignar calificaciones"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/success_green"
-            android:layout_marginBottom="16dp" />
+            android:textColor="#2E7D32"
+            android:layout_marginBottom="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Selecciona la materia"
             android:textSize="14sp"
-            android:textColor="@color/text_secondary"
+            android:textColor="#555555"
             android:layout_marginBottom="8dp" />
 
         <Spinner
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="Selecciona el alumno"
             android:textSize="14sp"
-            android:textColor="@color/text_secondary"
+            android:textColor="#555555"
             android:layout_marginBottom="8dp" />
 
         <Spinner
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:text="Ingresa la calificación"
             android:textSize="14sp"
-            android:textColor="@color/text_secondary"
+            android:textColor="#555555"
             android:layout_marginBottom="8dp" />
 
         <EditText
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:hint="Ejemplo: 9.5"
             android:inputType="numberDecimal"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="20dp" />
 
         <Button
             android:id="@+id/btnGuardarCalificacionProfesor"
@@ -69,9 +69,41 @@
             android:layout_height="52dp"
             android:text="Guardar calificación"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/success_green"
-            android:textAllCaps="false" />
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lista de alumnos y calificaciones"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:layout_marginBottom="8dp" />
+
+        <ProgressBar
+            android:id="@+id/progressListaCalificacionesProfesor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tvSinListaCalificacionesProfesor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No hay alumnos inscritos o no hay datos."
+            android:textSize="14sp"
+            android:textColor="#777777"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp" />
+
+        <ListView
+            android:id="@+id/listViewCalificacionesProfesor"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:dividerHeight="8dp" />
 
     </LinearLayout>
 </ScrollView>
