@@ -27,12 +27,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nombre de la Materia"
+            android:textColorHint="@color/text_secondary"
             android:layout_marginBottom="12dp" />
 
         <EditText
             android:id="@+id/etHorarioMateriaAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/text_secondary"
             android:hint="Horario (Ej: Lun 10:00)"
             android:layout_marginBottom="12dp" />
 
@@ -41,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Correo del Profesor"
+            android:textColorHint="@color/text_secondary"
             android:inputType="textEmailAddress"
             android:layout_marginBottom="16dp" />
 
@@ -76,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Correo del Alumno"
+            android:textColorHint="@color/text_secondary"
             android:inputType="textEmailAddress"
             android:layout_marginBottom="12dp" />
 

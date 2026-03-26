@@ -61,6 +61,7 @@
             android:layout_height="wrap_content"
             android:hint="Ejemplo: 9.5"
             android:inputType="numberDecimal"
+            android:textColorHint="@color/text_secondary"
             android:layout_marginBottom="20dp" />
 
         <Button

@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nombre del usuario"
+            android:textColorHint="@color/text_secondary"
             android:inputType="textPersonName"
             android:layout_marginBottom="16dp" />
 
@@ -52,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ejemplo@correo.com"
+            android:textColorHint="@color/text_secondary"
             android:inputType="textEmailAddress"
             android:layout_marginBottom="16dp" />
 
@@ -68,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mínimo 6 caracteres"
+            android:textColorHint="@color/text_secondary"
             android:inputType="textPassword"
             android:layout_marginBottom="16dp" />
 
@@ -84,6 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:textColor="@color/text_secondary"
             android:layout_marginBottom="24dp">
 
             <RadioButton
@@ -103,6 +107,7 @@
                 android:id="@+id/rbNuevoAdmin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
                 android:text="Administrador" />
         </RadioGroup>
 
@@ -143,6 +148,7 @@
             android:layout_height="wrap_content"
             android:hint="ejemplo@correo.com"
             android:inputType="textEmailAddress"
+            android:textColorHint="@color/text_secondary"
             android:layout_marginBottom="16dp" />
 
         <TextView
