@@ -23,26 +23,6 @@ El sistema está respaldado por Firebase, lo que garantiza persistencia, sincron
 
 Agrega aquí tus capturas de pantalla (recomendado subirlas a una carpeta `/screenshots` en el repositorio):
 
-```
-/screenshots/admin.png
-/screenshots/profesor.png
-/screenshots/alumno.png
-```
-
-Luego puedes mostrarlas así:
-
-![Admin](screenshots/admin.png)
-![Profesor](screenshots/profesor.png)
-![Alumno](screenshots/alumno.png)
-
----
-
-## Demo
-
-APK disponible para instalación:
-
-* Descargar APK: (agrega aquí el enlace a GitHub Releases o Drive)
-
 ---
 
 ## Arquitectura del Sistema
