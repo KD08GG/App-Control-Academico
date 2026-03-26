@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    android:padding="24dp"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,22 +12,22 @@
         android:text="Tomar asistencia"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#1565C0"
-        android:layout_marginBottom="12dp"/>
+        android:textColor="@color/primary_blue"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Selecciona la materia"
         android:textSize="14sp"
-        android:textColor="#555555"
+        android:textColor="@color/text_secondary"
         android:layout_marginBottom="8dp"/>
 
     <Spinner
         android:id="@+id/spinnerMateriasProfesor"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="24dp"/>
 
     <Button
         android:id="@+id/btnEscanearQr"
@@ -35,7 +35,8 @@
         android:layout_height="52dp"
         android:text="Escanear QR"
         android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#1565C0"/>
+        android:textColor="@color/white"
+        android:backgroundTint="@color/primary_blue"
+        android:textAllCaps="false"/>
 
 </LinearLayout>

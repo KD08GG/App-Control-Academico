@@ -13,65 +13,71 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Asignar calificaciones"
+            android:text="Asignar Roles"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/success_green"
+            android:textColor="@color/primary_blue"
             android:layout_marginBottom="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selecciona la materia"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="8dp" />
-
-        <Spinner
-            android:id="@+id/spinnerMateriasCalifProfesor"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Selecciona el alumno"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="8dp" />
-
-        <Spinner
-            android:id="@+id/spinnerAlumnosCalifProfesor"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ingresa la calificación"
+            android:text="Correo del usuario"
             android:textSize="14sp"
             android:textColor="@color/text_secondary"
             android:layout_marginBottom="8dp" />
 
         <EditText
-            android:id="@+id/etCalificacionProfesor"
+            android:id="@+id/etEmailUsuarioAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ejemplo: 9.5"
-            android:inputType="numberDecimal"
-            android:layout_marginBottom="24dp" />
+            android:hint="ejemplo@correo.com"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Rol"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/rgRolesAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+
+            <RadioButton
+                android:id="@+id/rbAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alumno"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/rbProfesor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profesor" />
+
+            <RadioButton
+                android:id="@+id/rbAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Administrador" />
+        </RadioGroup>
 
         <Button
-            android:id="@+id/btnGuardarCalificacionProfesor"
+            android:id="@+id/btnActualizarRol"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:text="Guardar calificación"
+            android:text="Actualizar Rol"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:backgroundTint="@color/success_green"
-            android:textAllCaps="false" />
+            android:backgroundTint="@color/primary_blue" />
 
     </LinearLayout>
 </ScrollView>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F5F7FA">
+    android:background="@color/background_gray">
 
     <LinearLayout
+        android:id="@+id/llHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#1565C0"
+        android:background="@color/primary_blue"
         android:padding="24dp">
 
         <TextView
@@ -19,7 +19,7 @@
             android:text="Panel del Profesor"
             android:textSize="26sp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tvSubtituloProfesor"
@@ -27,23 +27,15 @@
             android:layout_height="wrap_content"
             android:text="Gestiona asistencia, calificaciones y horario"
             android:textSize="14sp"
-            android:textColor="#E3F2FD"
+            android:textColor="@color/light_blue"
             android:layout_marginTop="6dp" />
-
-        <Button
-            android:id="@+id/btnCerrarSesion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cerrar sesión"
-            android:textAllCaps="false"
-            android:textColor="#1565C0"
-            android:backgroundTint="#FFFFFF"
-            android:layout_marginTop="12dp"/>
     </LinearLayout>
 
     <HorizontalScrollView
+        android:id="@+id/hsvTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/llHeader"
         android:fillViewport="true"
         android:scrollbars="none">
 
@@ -63,8 +55,8 @@
                 android:text="Asistencia"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#1976D2"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/secondary_blue"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:layout_marginEnd="12dp" />
@@ -76,8 +68,8 @@
                 android:text="Calificaciones"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#2E7D32"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/success_green"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:layout_marginEnd="12dp" />
@@ -89,21 +81,23 @@
                 android:text="Horario"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#7B1FA2"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/purple"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp" />
         </LinearLayout>
     </HorizontalScrollView>
 
     <LinearLayout
+        android:id="@+id/llSectionInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/hsvTabs"
         android:orientation="vertical"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="6dp"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:padding="16dp">
 
         <TextView
@@ -113,7 +107,7 @@
             android:text="Sección actual"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="#757575" />
+            android:textColor="@color/text_secondary" />
 
         <TextView
             android:id="@+id/tvNombreSeccion"
@@ -122,16 +116,31 @@
             android:text="Asistencia"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#212121"
+            android:textColor="@color/text_primary"
             android:layout_marginTop="4dp" />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fragmentContainerProfesor"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llSectionInfo"
+        android:layout_above="@+id/tvLogOut"
         android:layout_margin="16dp"
-        android:background="#FFFFFF" />
+        android:background="@color/white" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tvLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:text="Log Out"
+        android:textColor="@color/logout_red"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="true" />
+
+</RelativeLayout>

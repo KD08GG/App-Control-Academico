@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,55 +11,40 @@
         android:padding="24dp"
         android:gravity="center_horizontal">
 
-        <!-- Título -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pase de Lista"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#1565C0"
-            android:layout_marginBottom="4dp"/>
+            android:textColor="@color/primary_blue"
+            android:layout_marginBottom="16dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Genera tu código QR para registrar asistencia"
-            android:textSize="13sp"
-            android:textColor="#666666"
-            android:layout_marginBottom="24dp"/>
-
-        <!-- Spinner de materias -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Selecciona tu materia"
             android:textSize="14sp"
-            android:textColor="#333333"
-            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
             android:layout_marginBottom="8dp"/>
 
         <Spinner
             android:id="@+id/spinnerMateriasQr"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/bg_spinner"
-            android:padding="4dp"
             android:layout_marginBottom="20dp"/>
 
-        <!-- Botón generar -->
         <Button
             android:id="@+id/btnGenerarQr"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:text="Generar QR"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:text="Generar Código QR"
             android:textStyle="bold"
-            android:backgroundTint="#1565C0"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primary_blue"
+            android:textAllCaps="false"
             android:layout_marginBottom="24dp"/>
 
-        <!-- ProgressBar carga materias -->
         <ProgressBar
             android:id="@+id/progressQr"
             android:layout_width="wrap_content"
@@ -68,26 +52,25 @@
             android:visibility="gone"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Instrucción -->
-        <TextView
-            android:id="@+id/tvInstruccionQr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Selecciona una materia y presiona el botón para generar tu QR."
-            android:textSize="13sp"
-            android:textColor="#555555"
-            android:gravity="center"
-            android:layout_marginBottom="20dp"/>
-
-        <!-- Imagen QR generado -->
         <ImageView
             android:id="@+id/imgQr"
             android:layout_width="260dp"
             android:layout_height="260dp"
             android:visibility="gone"
-            android:background="#FFFFFF"
+            android:background="@color/white"
             android:padding="12dp"
             android:elevation="4dp"/>
+
+        <TextView
+            android:id="@+id/tvInstruccionQr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Muestra este código al profesor para registrar tu asistencia."
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 </ScrollView>

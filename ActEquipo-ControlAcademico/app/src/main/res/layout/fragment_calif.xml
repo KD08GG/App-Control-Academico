@@ -1,72 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA"
-    android:padding="24dp">
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/white">
 
-    <!-- Título -->
     <TextView
-        android:id="@+id/tvTituloCalif"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mis Calificaciones"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#1565C0"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:textColor="@color/success_green"
+        android:layout_marginBottom="16dp" />
 
-    <TextView
-        android:id="@+id/tvSubtitulo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Calificaciones por materia del semestre actual"
-        android:textSize="13sp"
-        android:textColor="#666666"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTituloCalif"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- ProgressBar -->
     <ProgressBar
         android:id="@+id/progressCalif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitulo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_gravity="center"
+        android:layout_marginBottom="12dp" />
 
-    <!-- Mensaje sin calificaciones -->
     <TextView
         android:id="@+id/tvSinCalificaciones"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No hay calificaciones disponibles."
+        android:text="No hay calificaciones registradas aún."
         android:textSize="14sp"
-        android:textColor="#888888"
-        android:gravity="center"
+        android:textColor="@color/text_secondary"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitulo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp" />
 
-    <!-- Lista de calificaciones -->
     <ListView
         android:id="@+id/listViewCalificaciones"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:divider="#E0E0E0"
-        android:dividerHeight="1dp"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitulo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

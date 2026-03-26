@@ -3,49 +3,57 @@ package com.udlap.controlacademico
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
-/**
- * AlumnoActivity — Panel principal del alumno.
- * Usa un BottomNavigationView para navegar entre 3 fragmentos:
- *  1. QrFragment      → Genera QR para el pase de lista
- *  2. CalifFragment   → Ve sus calificaciones por materia
- *  3. HorarioAlumnoFragment → Consulta su horario
- */
 class AlumnoActivity : AppCompatActivity() {
 
-    private lateinit var sessionManager: SessionManager
-    private lateinit var bottomNav: BottomNavigationView
-    private lateinit var btnCerrarSesion: Button
+    private lateinit var tvLogOut: TextView
+    private lateinit var btnQR: Button
+    private lateinit var btnCalif: Button
+    private lateinit var btnHorario: Button
+    private lateinit var tvNombreSeccion: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alumno)
 
-        sessionManager = SessionManager(this)
-        bottomNav     = findViewById(R.id.bottomNavAlumno)
-        btnCerrarSesion = findViewById(R.id.btnCerrarSesionAlumno)
+        tvLogOut = findViewById(R.id.tvLogOutAlumno)
+        btnQR = findViewById(R.id.btnQR)
+        btnCalif = findViewById(R.id.btnCalif)
+        btnHorario = findViewById(R.id.btnHorarioAlumno)
+        tvNombreSeccion = findViewById(R.id.tvNombreSeccionAlumno)
 
-        // Fragmento inicial: QR
         if (savedInstanceState == null) {
+            tvNombreSeccion.text = "Asistencia (QR)"
             cargarFragmento(QrFragment())
         }
 
-        // Navegación entre pestañas
-        bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_qr       -> { cargarFragmento(QrFragment());             true }
-                R.id.nav_calif    -> { cargarFragmento(CalifFragment());           true }
-                R.id.nav_horario  -> { cargarFragmento(HorarioAlumnoFragment());   true }
-                else              -> false
-            }
+        btnQR.setOnClickListener {
+            tvNombreSeccion.text = "Asistencia (QR)"
+            cargarFragmento(QrFragment())
         }
 
-        btnCerrarSesion.setOnClickListener {
+        btnCalif.setOnClickListener {
+            tvNombreSeccion.text = "Calificaciones"
+            cargarFragmento(CalifFragment())
+        }
+
+        btnHorario.setOnClickListener {
+            tvNombreSeccion.text = "Horario"
+            cargarFragmento(HorarioAlumnoFragment())
+        }
+
+        tvLogOut.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val sessionManager = SessionManager(this)
             sessionManager.cerrarSesion()
-            startActivity(Intent(this, LoginActivity::class.java))
+
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
             finish()
         }
     }

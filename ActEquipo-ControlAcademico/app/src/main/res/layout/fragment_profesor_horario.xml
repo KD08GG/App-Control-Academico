@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    android:padding="24dp"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,16 +12,16 @@
         android:text="Horario del profesor"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#7B1FA2"
-        android:layout_marginBottom="12dp" />
+        android:textColor="@color/purple"
+        android:layout_marginBottom="16dp" />
 
     <TextView
         android:id="@+id/tvHorarioProfesorInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aquí se mostrarán tus materias y horarios."
+        android:text="Aquí se mostrarán tus materias y horarios asignados."
         android:textSize="14sp"
-        android:textColor="#555555"
+        android:textColor="@color/text_secondary"
         android:layout_marginBottom="12dp" />
 
     <ProgressBar
@@ -29,22 +29,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:layout_gravity="center"
         android:layout_marginBottom="12dp" />
 
     <TextView
         android:id="@+id/tvSinHorarioProfesor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No tienes materias asignadas."
+        android:text="No tienes materias asignadas actualmente."
         android:textSize="14sp"
-        android:textColor="#777777"
+        android:textColor="@color/text_secondary"
         android:visibility="gone"
-        android:layout_marginBottom="12dp" />
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp" />
 
     <ListView
         android:id="@+id/listViewHorarioProfesor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
         android:dividerHeight="8dp" />
 
 </LinearLayout>

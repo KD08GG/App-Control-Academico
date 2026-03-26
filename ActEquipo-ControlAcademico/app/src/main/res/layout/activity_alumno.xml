@@ -1,67 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA">
+    android:background="@color/background_gray">
 
-    <!-- Toolbar / Header -->
     <LinearLayout
-        android:id="@+id/headerAlumno"
-        android:layout_width="0dp"
+        android:id="@+id/llHeaderAlumno"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#1565C0"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:orientation="vertical"
+        android:background="@color/primary_blue"
+        android:padding="24dp">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Control Académico"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnCerrarSesionAlumno"
+            android:id="@+id/tvTituloAlumno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Salir"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#0D47A1"
-            android:textSize="12sp"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"/>
+            android:text="Portal del Alumno"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/white" />
 
+        <TextView
+            android:id="@+id/tvSubtituloAlumno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consulta tus clases, asistencias y notas"
+            android:textSize="14sp"
+            android:textColor="@color/light_blue"
+            android:layout_marginTop="6dp" />
     </LinearLayout>
 
-    <!-- Contenedor de fragmentos -->
+    <HorizontalScrollView
+        android:id="@+id/hsvTabsAlumno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llHeaderAlumno"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="18dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="10dp">
+
+            <Button
+                android:id="@+id/btnQR"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Asistencia (QR)"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/secondary_blue"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginEnd="12dp" />
+
+            <Button
+                android:id="@+id/btnCalif"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Calificaciones"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/success_green"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginEnd="12dp" />
+
+            <Button
+                android:id="@+id/btnHorarioAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Horario"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/purple"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/llSectionInfoAlumno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hsvTabsAlumno"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/white"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvSeccionActualAlumno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sección actual"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary" />
+
+        <TextView
+            android:id="@+id/tvNombreSeccionAlumno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Asistencia (QR)"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/contenedorFragmento"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/headerAlumno"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavAlumno"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llSectionInfoAlumno"
+        android:layout_above="@+id/tvLogOutAlumno"
+        android:layout_margin="16dp"
+        android:background="@color/white" />
 
-    <!-- Bottom Navigation -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavAlumno"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tvLogOutAlumno"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        app:menu="@menu/menu_alumno"
-        app:itemIconTint="#1565C0"
-        app:itemTextColor="#1565C0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:text="Log Out"
+        android:textColor="@color/logout_red"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="true" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

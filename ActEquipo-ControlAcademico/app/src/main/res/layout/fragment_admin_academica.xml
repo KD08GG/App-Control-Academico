@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- SECCIÓN CREAR MATERIA -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crear Nueva Materia"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/success_green"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/etNombreMateriaAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre de la Materia"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/etHorarioMateriaAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Horario (Ej: Lun 10:00)"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/etEmailProfesorMateriaAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo del Profesor"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnCrearMateriaAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Crear Materia"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/success_green"
+            android:textAllCaps="false"
+            android:layout_marginBottom="32dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_marginBottom="32dp" />
+
+        <!-- SECCIÓN ASIGNAR ALUMNO -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inscribir Alumno en Materia"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_blue"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/etEmailAlumnoInscribir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo del Alumno"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecciona la Materia"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spinnerMateriasInscribir"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnInscribirAlumno"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Inscribir Alumno"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primary_blue"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+</ScrollView>

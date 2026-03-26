@@ -1,130 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="@color/background_gray">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Panel Administrador"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="#065044"
-        android:layout_marginBottom="24dp" />
-
-    <!-- ── SECCIÓN: CAMBIAR ROL ─────────────────────────────────────── -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cambiar rol de usuario"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
-
-    <!-- Campo para el correo del usuario a modificar -->
-    <EditText
-        android:id="@+id/etEmailUsuario"
+    <LinearLayout
+        android:id="@+id/llHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Correo del usuario"
-        android:inputType="textEmailAddress"
-        android:layout_marginBottom="8dp" />
+        android:orientation="vertical"
+        android:background="@color/primary_blue"
+        android:padding="24dp">
 
-    <!--
-        RadioGroup: permite seleccionar UNA opción entre varias.
-        Cada RadioButton representa un rol posible.
-    -->
-    <RadioGroup
-        android:id="@+id/radioGroupRol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
-
-        <RadioButton
-            android:id="@+id/radioAlumno"
+        <TextView
+            android:id="@+id/tvTituloAdmin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alumno"
-            android:checked="true"
-            android:buttonTint="#065044" />
+            android:text="Panel Administrativo"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/white" />
 
-        <RadioButton
-            android:id="@+id/radioProfesor"
+        <TextView
+            android:id="@+id/tvSubtituloAdmin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="#065044"
-            android:text="Profesor"
-            android:layout_marginStart="16dp" />
+            android:text="Gestión de usuarios y académica"
+            android:textSize="14sp"
+            android:textColor="@color/light_blue"
+            android:layout_marginTop="6dp" />
+    </LinearLayout>
 
-        <RadioButton
-            android:id="@+id/radioAdmin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="#065044"
-            android:text="Admin"
-            android:layout_marginStart="16dp" />
-
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/btnCambiarRol"
+    <HorizontalScrollView
+        android:id="@+id/hsvTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="#FF5722"
-        android:text="Cambiar Rol" />
+        android:layout_below="@id/llHeader"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
-    <!-- ── SECCIÓN: CREAR MATERIA ───────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="18dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="10dp">
+
+            <Button
+                android:id="@+id/btnGestionUsuarios"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Usuarios"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/secondary_blue"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginEnd="12dp" />
+
+            <Button
+                android:id="@+id/btnGestionAcademica"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Académica"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/success_green"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/llSectionInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hsvTabs"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/white"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvSeccionActualAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sección actual"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary" />
+
+        <TextView
+            android:id="@+id/tvNombreSeccionAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Usuarios"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainerAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llSectionInfo"
+        android:layout_above="@+id/tvLogOut"
+        android:layout_margin="16dp"
+        android:background="@color/white" />
+
     <TextView
+        android:id="@+id/tvLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crear nueva materia"
-        android:textSize="16sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:text="Log Out"
+        android:textColor="@color/logout_red"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
+        android:clickable="true"
+        android:focusable="true" />
 
-    <EditText
-        android:id="@+id/etNombreMateria"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre de la materia"
-        android:layout_marginBottom="8dp" />
-
-    <EditText
-        android:id="@+id/etHorario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Horario (ej: Lun/Mié 10:00-11:30)"
-        android:layout_marginBottom="8dp" />
-
-    <EditText
-        android:id="@+id/etEmailProfesor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Correo del profesor asignado"
-        android:inputType="textEmailAddress"
-        android:layout_marginBottom="8dp" />
-
-    <Button
-        android:id="@+id/btnCrearMateria"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="#FF5722"
-        android:text="Crear Materia" />
-
-    <!-- Botón de cerrar sesión siempre al fondo -->
-    <Button
-        android:id="@+id/btnCerrarSesion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#065044"
-        android:text="Cerrar Sesión"
-        android:layout_marginTop="80dp" />
-    />
-
-</LinearLayout>
+</RelativeLayout>

@@ -10,8 +10,7 @@ import android.content.Intent
 
 class ProfesorActivity : AppCompatActivity() {
 
-    private lateinit var btnCerrarSesion: Button
-
+    private lateinit var tvLogOut: TextView
     private lateinit var btnAsistencia: Button
     private lateinit var btnCalificaciones: Button
     private lateinit var btnHorario: Button
@@ -21,7 +20,7 @@ class ProfesorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profesor)
 
-        btnCerrarSesion = findViewById(R.id.btnCerrarSesion)
+        tvLogOut = findViewById(R.id.tvLogOut)
         btnAsistencia = findViewById(R.id.btnAsistencia)
         btnCalificaciones = findViewById(R.id.btnCalificaciones)
         btnHorario = findViewById(R.id.btnHorario)
@@ -47,17 +46,17 @@ class ProfesorActivity : AppCompatActivity() {
             reemplazarFragment(ProfesorHorarioFragment())
         }
 
-        btnCerrarSesion.setOnClickListener {
-
+        tvLogOut.setOnClickListener {
             // 1. Cerrar sesión en Firebase
             FirebaseAuth.getInstance().signOut()
 
-            // 2. Limpiar sesión local (si usas SessionManager)
+            // 2. Limpiar sesión local
             val sessionManager = SessionManager(this)
             sessionManager.cerrarSesion()
 
             // 3. Regresar a Login
             val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
 
             // 4. Cerrar esta Activity
